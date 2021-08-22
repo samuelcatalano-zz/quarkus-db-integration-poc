@@ -1,0 +1,61 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="Sam" id="1">
+        <createTable tableName="person">
+            <column name="id" type="bigint">
+                <constraints primaryKeyName="person_pkey" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="version" type="VARCHAR(255)"/>
+            <column name="date_of_birth" type="TIMESTAMP"/>
+            <column name="gender" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+
+        <createTable tableName="pet">
+            <column name="id" type="bigint">
+                <constraints primaryKeyName="pet_pkey" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="version" type="VARCHAR(255)"/>
+            <column name="gender" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="breed" type="VARCHAR(255)"/>
+            <column name="person_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="pet" baseColumnNames="person_id"
+                                 constraintName="fk7sx5enfvdom1h3kq3wo0tcm65" referencedTableName="person"
+                                 referencedColumnNames="id"/>
+        <createTable tableName="vet">
+            <column name="id" type="bigint">
+                <constraints primaryKeyName="vet_pkey" primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="version" type="VARCHAR(255)"/>
+            <column name="gender" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="vet_register" type="VARCHAR(255)"/>
+        </createTable>
+
+        <createTable tableName="vet_pet">
+            <column name="vet_id" type="bigint">
+                <constraints nullable="false" referencedTableName="vet"/>
+            </column>
+            <column name="pet_id" type="bigint">
+                <constraints nullable="false" referencedTableName="pet"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
